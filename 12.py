@@ -1,0 +1,31 @@
+from tkinter import *
+
+
+class Block:
+    def __init__(self, master, func):
+        self.ent = Entry(master, width=20)
+        self.but = Button(master, text="преобразоваться")  # убираем command из конструктора
+        self.lab = Label(master, width=20, bg='black', fg='white')
+
+        # устанавливаем command после создания всех виджетов
+        self.but['command'] = getattr(self, func)
+
+        self.ent.pack()
+        self.but.pack()
+        self.lab.pack()
+
+    def str_to_sort(self):
+        s = self.ent.get().split()
+        s.sort()
+        self.lab['text'] = ' '.join(s)
+
+    def str_reverse(self):
+        s = self.ent.get().split()
+        s.reverse()
+        self.lab['text'] = ' '.join(s)
+
+
+root = Tk()
+first_block = Block(root, 'str_to_sort')
+second_block = Block(root, 'str_reverse')
+root.mainloop()
